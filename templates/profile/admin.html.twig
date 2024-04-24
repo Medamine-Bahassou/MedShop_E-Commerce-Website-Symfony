@@ -1,0 +1,81 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="click" onclick="sidebar()" style="position: fixed; top:0; left:0; padding:35px; z-index:999999; font-size:30px; cursor:pointer;">
+        <i class="fa-solid fa-ellipsis"></i>
+      </div>
+      <div id="sidebar" class="sidebar">
+      <div id="con" class="bg-body-tertiary col shadow sidebar "  >
+        
+        <div class="row-6  d-flex justify-content-center align-items-center w-100">
+          <img src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-instagram-profile-button.png" 
+          class="img shadow"
+          width="100px">
+        </div>
+          <div class="row-6" style="z-index: 9999999;" >
+              <ul class="col mt-5">
+                <li class=" row but my-3">
+                  <div class="icon d-flex justify-content-between align-items-center w-75">
+                    <i class="fa-solid fa-gauge"></i>
+                    <a class="nav-link" aria-current="page" href="#dashboard">Dashboard</a>  
+                  </div>
+                </li>
+                <li class=" row but my-3  ">
+                  <div class="icon d-flex justify-content-between align-items-center w-75">
+                    <i class="fa-solid fa-truck-fast"></i>
+                    <a class="nav-link " href="#orders">Orders</a>
+                  </div>
+                </li>
+                <li class="  row but my-3">
+                  <div class="icon d-flex justify-content-between align-items-center w-75">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <a class="nav-link" href="#products">Products</a>
+                  </div>
+                </li>
+                <li class="row but my-3">
+                  <div class="icon d-flex justify-content-between align-items-center w-75 ">
+                    <i class="fa-solid fa-disable"></i>
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                  </div>
+                  </li>
+              </ul>
+          </div>
+      </div>
+      </div>
+  
+        <!--  -->
+  
+        <div  class="nav m-0 shadow bg-light row" style="z-index:99; display:flex; justify-content:end;">
+          <div  class="col-10 d-flex align-items-center d-flex justify-content-end ">
+            <input type="text" name="search" id="search" class=" search rounded-pill form-control shadow" style="width:400px; position:relative; z-index:2;">
+            <a href="#" id="a"><i style="font-size:20px;"  class="ms-4 fa fa-search text text-danger"></i></a>
+          </div>
+          <div class="col-2 d-flex align-items-center">
+            <div class="dropdown">
+              <div type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+                <img src="https://images.vexels.com/media/users/3/147101/isolated/preview/b4a49d4b864c74bb73de63f080ad7930-instagram-profile-button.png" width="50px">
+              </div>
+              <ul class="dropdown-menu" style="position:relative;left:100px;">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Setting action</a></li>
+                <li><a class="dropdown-item" href="#">Logout</a></li>
+              </ul>
+            </div>
+          </div>  
+        </div>
+        
+  
+        <div id="content" class="content" >
+          <div class="container p-4" style="height:1000px;" >
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure, suscipit qui quisquam perferendis asperiores ducimus? Nobis sed, repudiandae velit consequuntur vel est molestias, similique eos a hic earum assumenda mollitia.</p>
+          </div>
+        </div>
+        <script src="javascript.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  
+</body>
+</html>

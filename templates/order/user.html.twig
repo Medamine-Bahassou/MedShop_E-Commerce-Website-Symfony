@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Orders List{% endblock %}
+
+{% block body %}
+
+    
+
+    <div class="row my-5">
+        <div class="col-md-10 mx-auto">
+            {%for message in app.flashes("success")%}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+            {%endfor%}
+
+            <div class="card">
+                <div class="card-header">
+                    My Orders
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Totale Price</th>
+                                <th>Quantity</th> <!-- Q -->
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                {%for historique in historiques%}
+                                    {%if historique.status != "In Progress" %}
+                                        <tr>
+                                            <td>{{loop.index}}</td>
+                                            <td>{{historique.produit}}</td>
+                                            <td>{{historique.prixtotale}}</td>
+
+                                        <!-- Q -->
+
+                                            <td>
+                                                x {{historique.quantity}}
+                                            </td>
+
+                                            <td>
+                                                {% if(historique.status == "processing...") %}
+                                                    <span class="badge bg-warning p-2">
+                                                        {{historique.status}}
+                                                    </span>
+                                                {% elseif(historique.status == "Shipped")  %}
+                                                    <span class="badge bg-success p-2">
+                                                        {{historique.status}}
+                                                    </span>
+                                                {% elseif(historique.status == "Not Payed")  %}
+                                                    <span class="badge bg-dark p-2">
+                                                        {{historique.status}}
+                                                    </span>
+
+                                                    
+                                                {% else %}
+                                                    <span class="badge bg-danger p-2">
+                                                        {{historique.status}}                
+                                                    </span>
+                                                {% endif %}
+                                            </td>
+                                            
+                                        </tr>
+                                    {%endif%}
+
+                                {% endfor %}
+                                    
+                                </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

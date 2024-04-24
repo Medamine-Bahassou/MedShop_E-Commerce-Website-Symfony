@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Orders List{% endblock %}
+
+{% block body %}
+
+    <div class="container d-flex justify-content-center align-items-center" >
+        <div class="card" style="width: 58rem; ">
+            <div class="d-flex justify-content-center align-items-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="m-4" width="200px">
+            <div class="card-body">
+              <h5 class="card-title">{{app.user.fullname}}</h5>
+              <p>{% if 'ROLE_ADMIN' in app.user.roles%}Admin{%else%}User{%endif%}</p>
+
+              <p class="card-text"></p>
+            </div>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Username : {{app.user.username}} </li>
+              <li class="list-group-item">Email : {{app.user.email}} </li>
+              <li class="list-group-item">Phone Number :{%if app.user.tel%} +212  {{app.user.tel}} {%endif%} </li>
+              <li class="list-group-item">Password : ******** </li>
+            </ul>
+            <div class="card-body row w-100">
+              <div class="col">
+                  <form id="{{app.user.id}}" action="{{path('profile_delete',{id: app.user.id})}}" method="post"></form>
+
+                  <a  onclick="deleteItem('{{app.user.id}}')" class="text text-danger" style="text-decoration: none; cursor:pointer;">
+                      Remove Acount
+                  </a>
+              </div>
+              
+
+              <div class="col d-flex justify-content-end">
+                <a href="{{path('profile_edit',{id: app.user.id})}}" class="btn btn-sm btn-primary mx-3 w-25">
+                  Edit
+                </a>
+                <a href="" class="btn btn-sm btn-danger mx-3 w-25">
+                  Logout
+                </a>
+              </div>
+              
+            </div>
+            
+          </div>
+    </div>
+
+
+{% endblock %}

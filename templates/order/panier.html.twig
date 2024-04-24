@@ -1,0 +1,186 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Orders List{% endblock %}
+
+{% block body %}
+
+    
+
+    <div class="row my-5">
+        <div class="col-md-10 mx-auto">
+            {%for message in app.flashes("success")%}
+            <div class="alert alert-success">
+                {{message}}
+            </div>
+            {%endfor%}
+
+            <div class="card my-5">
+                <div class="card-header">
+                    Panier
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+
+                                <th>Status</th>
+                                <th>Total Price</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                {% set sum = 0 %}
+                                {%for order in orders%}
+                                    {%if order.status == 'Not Payed'%}
+                                    {% set sum = sum + order.price * order.quantity %}
+                                    <tr>
+                                        <td>{{loop.index}}</td>
+                                        <td>{{order.pname}}</td>
+                                        <td>{{order.price}} DH</td>
+                                        <td>{{order.quantity}}</td>
+                                        <td>non payer</td>
+                                        <td  id="price">{{order.price * order.quantity}} DH</td>
+
+                                        
+                                        <td>
+                                            <form id="{{order.id}}" action="{{path('order_delete',{orderid: order.id})}}" method="post"></form>
+        
+                                                <button onclick="deleteItem('{{order.id}}')" class="btn btn-sm btn-danger">
+                                                    Delete
+                                                </button>
+                                            <a href="{{path('order_status_update',{orderid: order.id, status: 'In Progress'})}}"  class="btn btn-success">Payer</a>
+
+                                        </td>
+        
+        
+                                    </tr>
+                                    {%endif%}
+                                {% endfor %}
+                                
+                                </tbody>
+
+                    </table>
+                    {%if sum != 0 %}
+                    <div class="row">
+                        <div class="col-9">
+                            <h1>Paiment</h1>
+                            <form id="order" action="{{path('payer')}}"></form>
+                        </div>
+                        <div class="col-3">
+
+                            <script src="https://www.paypal.com/sdk/js?client-id=test&locale=en_US"></script>
+                            <!-- Set up a container element for the button -->
+                            <div id="paypal-button-container"></div>
+                            <script>
+                                paypal.Buttons({
+                                    style: {
+                                        layout: 'horizontal',
+                                        color:  'black',
+                                        shape:  'rect',
+                                        label:  'pay'
+                                      },
+                                    // All your options here !
+                                    createOrder: (data, actions) => {
+                                        return actions.order.create({
+                                            intent: 'capture',  // capture or authorize
+                                            purchase_units: [{
+                                                    amount: {
+                                                        value: {{sum / 10}}
+                                                    },
+                                                    description: 'Magical unicorn',
+                                                    invoice_id: '1234567890',
+                                                    soft_descriptor: 'unicorn-2345678'
+                                            }],
+                                            application_context: {
+                                                    brand_name: 'My amazing brand',
+                                                    shipping_preference: 'NO_SHIPPING' // if you handle shipping
+                                            }
+                                        });
+                                        
+                                    },
+                                    // Finalizes the transaction after payer approval
+                                    onApprove: (data) => {
+                                            console.log('Success !')
+                                            document.getElementById('order').submit();
+                                            alert('You have successfully created subscription ' + data.subscriptionID);
+                                    },
+                                    // The user closed the window
+                                    onCancel: () => {
+                                            console.log('The user canceled the payment');
+                                    },
+                                    onError: (err) => {
+                                            console.log('Something went wrong', err);
+                                    }
+                                }).render('#paypal-button-container');
+                            </script>
+                        </div>
+
+
+                    </div>
+                    {%endif%}
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-header">
+                    Historique
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                {%for historique in historiques%}
+                                    <tr>
+                                        {%if historique.status == 'Shipped' or historique.status == 'Rejected' or historique.status =='In Progress' %}
+                                            <td>{{loop.index}}</td>
+                                            <td>{{historique.produit}}</td>
+                                            <td>{{historique.prixTotale}}</td>
+                                            <td>{{historique.quantity}}</td>
+                                            <td>
+                                                {% if(historique.status == "Shipped")  %}
+                                                    <span class="badge bg-success p-2">
+                                                        {{historique.status}}
+                                                    </span>
+                                                {% elseif(historique.status == "Rejected") %}
+                                                    <span class="badge bg-danger p-2">
+                                                        {{historique.status}}                
+                                                    </span>
+                                                {% elseif(historique.status == "In Progress") %}
+                                                    <span class="badge bg-warning p-2">
+                                                        {{historique.status}}             
+                                                    </span>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{historique.DateOrder|date("m/d/Y")}}</td>
+
+                                        {%endif%}
+                                    
+                                        
+        
+        
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
