@@ -1,1 +1,0 @@
-# MedShop_E-Commerce-Website-Symfony

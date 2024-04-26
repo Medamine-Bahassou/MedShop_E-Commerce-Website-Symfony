@@ -248,20 +248,44 @@ class OrderController extends AbstractController
     #[Route('/payer', name: 'payer')]
     public function payer(): Response
     {
-        $orders = new Order();
+        $user = $this->getUser();
         
-        $orders = $this->orderRepository->findBy(['userid' => $this->getUser(), 'status' => 'Not Payed']);
-        foreach($orders as $order){
-            $order->setStatus('In Progress');
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+        
+        $orders = $this->orderRepository->findBy(['user' => $user]);
+        $historique= new Historique();
+        $status = 'In Progress' ; 
+        foreach ($orders as $order) {
+            $order->setStatus($status) ; 
+            $historique->setUserid($order->getUser()->getId());
+            $historique->setStatus($status);
+            $historique->setProduit($order->getPname());
+            $date = new DateTimeImmutable();
+            $historique->setDateOrder($date);
+            $historique->setQuantity($order->getQuantity());
+            $historique->setPrixTotale($order->getPrice());
+    
+            $this->entityManager->persist($historique);
+            if($order->getStatus() == 'Shipped' || $order->getStatus() == 'Rejected'){
+                $this->entityManager->remove($order);
+            }
+            
+            
             $this->entityManager->persist($order);
         }
+
+        $this->addFlash(
+            'success',
+            'Order status was Updated'
+        );       
+        
         $this->entityManager->flush();
-
-
         
         return $this->redirectToRoute('panier');
     }
- 
+     
     
 
     

@@ -86,7 +86,10 @@ class RegistrationController extends AbstractController
                     $user,
                     $form->get('password')->getData()
                 )
-            );            
+            );   
+            
+            
+            
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash(
