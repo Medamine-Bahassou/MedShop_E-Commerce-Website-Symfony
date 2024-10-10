@@ -1,5 +1,6 @@
-
-<img align="center" src="https://github.com/user-attachments/assets/110eab4e-53c4-40c5-bf60-462dd5c80312" width="250"  />
+<div align="center">
+  <img  src="https://github.com/user-attachments/assets/110eab4e-53c4-40c5-bf60-462dd5c80312" width="250"  />
+</div>
 
 # MedShop - Site E-Commerce
 
