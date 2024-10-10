@@ -1,9 +1,11 @@
+
+<img align="center" src="https://github.com/user-attachments/assets/110eab4e-53c4-40c5-bf60-462dd5c80312" width="250"  />
+
 # MedShop - Site E-Commerce
 
 ![crop medshop](https://github.com/Medamine-Bahassou/MedShop_E-Commerce-Website-Symfony/assets/146652318/77928c38-632b-440c-85a7-262195dc0c4c)
 
 
-<hr>
 
 ## Description
 MedShop est un site E-Commerce développé avec Symfony et Bootstrap. Ce site a été réalisé par Mohamed Amine Bahassou. Il offre des fonctionnalités permettant d'ajouter, supprimer et modifier des produits ou des profils, ainsi que de gérer le panier d'achats et les commandes.
